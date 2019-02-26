@@ -18,6 +18,10 @@
                            &xmreg::OpenMoneroRequests::name, "/" + string(#name));
 #endif
 
+#ifndef MAKE_GP_RESOURCE
+#define MAKE_GP_RESOURCE(name) auto name = open_monero.make_gp_resource( \
+                           &xmreg::OpenMoneroRequests::name, "/" + string(#name));
+#endif
 
 
 // When making *any* change here, bump minor
@@ -114,6 +118,10 @@ public:
 
     shared_ptr<Resource>
     make_resource(function< void (OpenMoneroRequests&, const shared_ptr< Session >, const Bytes& ) > handle_func,
+                  const string& path);
+
+    shared_ptr<Resource>
+    make_gp_resource(function< void (OpenMoneroRequests&, const shared_ptr< Session >, const Bytes& ) > handle_func,
                   const string& path);
 
     static void
